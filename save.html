@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SaveTabs: Save Session</title>
+    <link rel="stylesheet" href="page.css" />
+    <style>
+      body {
+        overflow: hidden;
+        margin: 0px;
+        padding: 0px;
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header"><h1>SaveTabs: Save Session</h1></div>
+      <form id="save-form" action="#">
+      <div id="tab-selection">
+        Select Which Tabs to Save:
+        <a href="#" id="toggle-all-tabs">select all</a>
+        <ul id="tab-list" class="list">
+        </ul>
+        What would you like to save the tabs under?
+        <ul id="session-list" class="list">
+          <li>
+            <label for="new-session">
+              <input type="radio" id="new-session" name="session_name" value="new_session_name" checked />
+              <input type="text" name="new_session_name" value="" placeholder="New Session Name" />
+            </label>
+          </li>
+        </ul>
+        <div id="password-box">
+          Optional Password:
+          <input type="text" name="password" value="" placeholder="Session Password" />
+          <div><em>If overwriting a previous session, passwords must match!</em></div>
+        </div>
+        <div id="final-options">
+          <div>
+            <input type="checkbox" name="close_tabs" value="close" />
+            <em>Close Tabs After Saving</em>
+          </div>
+          <button id="save-button">Save Tabs</button>
+        </div>
+      </div>
+    </div>
+    </form>
+    <script type="module" src="save.js"></script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SaveTabs: Load Session</title>
+    <link rel="stylesheet" href="page.css" />
+    <style>
+      body {
+        overflow: hidden;
+        margin: 0px;
+        padding: 0px;
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header"><h1>SaveTabs: Load Session</h1></div>
+      <div id="tab-selection">
+        <div id="load-description">
+          <div>Select Which Session to Load:</div>
+          <div>
+            <input type="checkbox" id="new-window" /><em>open in new window</em>
+          </div>
+        </div>
+        <ul id="session-list" class="list"></ul>
+        <div id="delete-wrapper">
+          <button id="delete-all-button">Delete All</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="load.js"></script>
+  </body>
+</html>
