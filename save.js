@@ -116,9 +116,12 @@ async function saveSession() {
     return showError("Names with only space characters are not allowed.");
   }
 
-  console.log(tabs);
-
   const session = await createSession(name, tabs);
+
+  const existingSession = await SessionStore.getSession(name);
+  if (existingSession) {
+    session.tabs = session.tabs.concat(existingSession.tabs);
+  }
 
   await SessionStore.addSession(session);
 
