@@ -6,6 +6,7 @@ const sessionList = document.getElementById("session-list");
 const form = document.getElementById("save-form");
 const toggle = document.getElementById("toggle-all-tabs");
 const saveButton = document.getElementById("save-button");
+let lastBoxIndex = null;
 
 async function displayTabs() {
   const tabs = await Tabs.getTabs();
@@ -15,6 +16,7 @@ async function displayTabs() {
     checkbox.name = "tabs[]";
     checkbox.id = tab.id;
     checkbox.$tab = tab;
+    checkbox.addEventListener("click", toggleSelection);
     checkbox.addEventListener("change", switchToggle);
 
     const label = document.createElement("label");
@@ -127,6 +129,26 @@ async function saveSession() {
   alert("Saved!");
 
   chrome.tabs.getCurrent((tab) => chrome.tabs.remove(tab.id));
+}
+
+function toggleSelection(e) {
+  const checkboxes = Array.from(form["tabs[]"]);
+  const currentIndex = checkboxes.indexOf(this);
+
+  console.log(e);
+  console.log(this);
+
+  if (lastBoxIndex !== null && e.shiftKey) {
+    const start = Math.min(lastBoxIndex, currentIndex);
+    const end = Math.max(lastBoxIndex, currentIndex);
+
+    const toggleTo = this.checked;
+
+    for (let i = start; i <= end; i++) {
+      checkboxes[i].checked = toggleTo;
+    }
+  }
+  lastBoxIndex = currentIndex;
 }
 
 function anyTabsChecked() {
