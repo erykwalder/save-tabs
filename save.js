@@ -1,9 +1,5 @@
 import { Tabs } from "./tabs.js";
-import {
-  SessionStore,
-  createSession,
-  verifySessionPassword,
-} from "./sessions.js";
+import { SessionStore, createSession } from "./sessions.js";
 
 const tabList = document.getElementById("tab-list");
 const sessionList = document.getElementById("session-list");
@@ -53,11 +49,6 @@ async function displaySessions() {
 
     const meta = document.createElement("div");
     meta.setAttribute("class", "session-meta");
-    if (session.encrypted) {
-      const lock = document.createElement("div");
-      lock.setAttribute("class", "lock");
-      meta.append(lock);
-    }
     meta.append(`[${session.tabs.length} Tabs]`);
 
     const label = document.createElement("label");
@@ -84,10 +75,6 @@ function getSessionName() {
     name = form.elements["new_session_name"].value;
   }
   return name;
-}
-
-function getPassword() {
-  return form.elements["password"].value;
 }
 
 function disableForm() {
@@ -127,24 +114,9 @@ async function saveSession() {
     return showError("Names with only space characters are not allowed.");
   }
 
-  const password = getPassword();
-
-  const existingSession = await SessionStore.getSession(name);
-  if (existingSession && existingSession.encrypted) {
-    const matchingPassword = await verifySessionPassword(
-      existingSession,
-      password
-    );
-    if (!matchingPassword) {
-      return showError(
-        "Password does not match existing password on overwritten session!"
-      );
-    }
-  }
-
   console.log(tabs);
 
-  const session = await createSession(name, tabs, password);
+  const session = await createSession(name, tabs);
 
   await SessionStore.addSession(session);
 

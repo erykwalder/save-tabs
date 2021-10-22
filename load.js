@@ -1,4 +1,4 @@
-import { SessionStore, verifySessionPassword, getTabs } from "./sessions.js";
+import { SessionStore, getTabs } from "./sessions.js";
 
 const sessionList = document.getElementById("session-list");
 const newWindow = document.getElementById("new-window");
@@ -33,16 +33,7 @@ async function displaySessions() {
     link.addEventListener("click", async (e) => {
       e.preventDefault();
 
-      let password;
-      if (session.encrypted) {
-        password = prompt("Session Password");
-        const passwordOk = await verifySessionPassword(session, password);
-        if (!passwordOk) {
-          return alert("Incorrect password!");
-        }
-      }
-
-      const urls = await getTabs(session, password);
+      const urls = await getTabs(session);
 
       if (newWindow.checked) {
         chrome.windows.create({ url: urls });
@@ -55,11 +46,6 @@ async function displaySessions() {
 
     const meta = document.createElement("span");
     meta.setAttribute("class", "session-meta");
-    if (session.encrypted) {
-      const lock = document.createElement("div");
-      lock.setAttribute("class", "lock");
-      meta.append(lock);
-    }
     meta.append(`[${session.tabs.length} Tabs]`);
     const trash = document.createElement("trash");
     trash.setAttribute("class", "trash");
