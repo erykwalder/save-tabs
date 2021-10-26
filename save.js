@@ -16,11 +16,11 @@ async function displayTabs() {
     checkbox.name = "tabs[]";
     checkbox.id = tab.id;
     checkbox.$tab = tab;
-    checkbox.addEventListener("click", toggleSelection);
     checkbox.addEventListener("change", switchToggle);
 
     const label = document.createElement("label");
     label.setAttribute("for", tab.id);
+    label.addEventListener("click", toggleSelection);
     label.append(checkbox);
 
     if (tab.favIconUrl) {
@@ -136,16 +136,13 @@ async function saveSession() {
 
 function toggleSelection(e) {
   const checkboxes = Array.from(form["tabs[]"]);
-  const currentIndex = checkboxes.indexOf(this);
-
-  console.log(e);
-  console.log(this);
+  const currentIndex = checkboxes.indexOf(this.firstChild);
 
   if (lastBoxIndex !== null && e.shiftKey) {
     const start = Math.min(lastBoxIndex, currentIndex);
     const end = Math.max(lastBoxIndex, currentIndex);
 
-    const toggleTo = this.checked;
+    const toggleTo = !this.firstChild.checked;
 
     for (let i = start; i <= end; i++) {
       checkboxes[i].checked = toggleTo;

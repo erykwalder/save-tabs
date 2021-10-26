@@ -42,6 +42,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: stretch;
+  user-select: none;
 }
 
 .list > li > label,
