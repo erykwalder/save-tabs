@@ -125,12 +125,12 @@ button {
   margin-top: 1em;
   display: flex;
   justify-content: space-between;
-  align-items: middle;
+  align-items: center;
 }
 
 #final-options > div {
   display: flex;
-  align-items: middle;
+  align-items: center;
 }
 
 .session-meta {
@@ -139,7 +139,7 @@ button {
   margin-right: 0.5em;
   color: #777;
   display: flex;
-  align-items: middle;
+  align-items: center;
 }
 
 .lock {
